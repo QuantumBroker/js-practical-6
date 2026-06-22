@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практична №6 - Modal System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Система Модальних Вікон (Варіант 3)</h1>
+    </header>
+
+    <main class="container">
+        <!-- Кнопки-тригери (Event Delegation ловитиме їх за data-modal) -->
+        <section class="demo-buttons">
+            <button class="btn" data-modal="modal-alert">Alert Modal</button>
+            <button class="btn" data-modal="modal-confirm">Confirm Modal</button>
+            <button class="btn" data-modal="modal-form">Form Modal</button>
+            <button class="btn" data-modal="modal-gallery">Image Gallery</button>
+            <button class="btn" data-modal="modal-video">Video Modal</button>
+        </section>
+    </main>
+
+    <!-- CONTAINER FOR MODALS (Стек підтримується автоматично) -->
+    <div id="modal-container">
+        
+        <!-- 1. ALERT MODAL (Fade анімація) -->
+        <div id="modal-alert" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true" data-animation="fade">
+            <div class="modal-window size-small">
+                <button class="modal-close" aria-label="Закрити модальне вікно">&times;</button>
+                <h3>Сповіщення</h3>
+                <p>Це інформаційне вікно типу Alert. Операцію виконано успішно!</p>
+                <div class="modal-actions">
+                    <button class="btn btn-close-trigger">Зрозуміло</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. CONFIRMATION MODAL (Slide анімація) -->
+        <div id="modal-confirm" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true" data-animation="slide">
+            <div class="modal-window size-medium">
+                <button class="modal-close" aria-label="Закрити модальне вікно">&times;</button>
+                <h3>Підтвердження дії</h3>
+                <p>Ви впевнені, що хочете видалити цей важливий файл? Відмінити дію буде неможливо.</p>
+                <div class="modal-actions">
+                    <button class="btn btn-secondary btn-close-trigger">Скасувати</button>
+                    <button class="btn btn-danger" id="confirm-action-btn">Підтвердити</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. FORM MODAL (Zoom анімація) -->
+        <div id="modal-form" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true" data-animation="zoom">
+            <div class="modal-window size-medium">
+                <button class="modal-close" aria-label="Закрити модальне вікно">&times;</button>
+                <h3>Вхід до системи</h3>
+                <form id="modal-sample-form" onsubmit="event.preventDefault(); alert('Форма відправлена!');">
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" required placeholder="name@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Пароль:</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <!-- Кнопка, що викликає модалку поверх модалки (Стек!) -->
+                    <button type="button" class="btn-link" data-modal="modal-alert">Забули пароль?</button>
+                    <div class="modal-actions">
+                        <button type="submit" class="btn">Увійти</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- 4. IMAGE GALLERY MODAL -->
+        <div id="modal-gallery" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true" data-animation="fade">
+            <div class="modal-window size-large gallery-window">
+                <button class="modal-close" aria-label="Закрити модальне вікно">&times;</button>
+                <div class="gallery-container">
+                    <button class="gallery-nav prev" aria-label="Попереднє зображення">&#10094;</button>
+                    <div class="gallery-wrapper">
+                        <img id="gallery-img" src="https://picsum.photos/id/10/800/500" alt="Галерея">
+                    </div>
+                    <button class="gallery-nav next" aria-label="Наступне зображення">&#10095;</button>
+                </div>
+                <div class="gallery-controls">
+                    <span id="gallery-counter">1 of 3</span>
+                    <button id="btn-zoom" class="btn btn-sm">Zoom In</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. VIDEO MODAL -->
+        <div id="modal-video" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true" data-animation="zoom">
+            <div class="modal-window size-fullscreen">
+                <button class="modal-close" aria-label="Закрити модальне вікно">&times;</button>
+                <div class="video-wrapper">
+                    <!-- Замість важкого iframe використаємо кастомний плеєр або пустий хостинг для демонстрації -->
+                    <iframe id="modal-iframe" width="100%" height="100%" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
